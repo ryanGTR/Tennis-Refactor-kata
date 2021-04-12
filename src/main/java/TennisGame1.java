@@ -1,75 +1,100 @@
+import java.util.HashMap;
+
+import static java.lang.Math.abs;
+
 public class TennisGame1 implements TennisGame {
 
-	private int m_score1 = 0;
-	private int m_score2 = 0;
-	private String player1Name;
-	private String player2Name;
+	private final HashMap<Integer, String> scoreLookup =
+							new HashMap<Integer, String>() {
+								{
+									put(0, "Love");
+									put(1, "Fifteen");
+									put(2, "Thirty");
+									put(3, "Forty");
+								}
+							};
+	private final int tempScore = 0;
+	private final String firstPlayerName;
+	private final String secondPlayerName;
+	private int firstPlayerScoreTimes = 0;
+	private int secondPlayerScoreTimes = 0;
+	private String score = "";
 
-	public TennisGame1(String player1Name, String player2Name) {
-		this.player1Name = player1Name;
-		this.player2Name = player2Name;
+	public TennisGame1(String firstPlayerName, String secondPlayerName) {
+		this.firstPlayerName = firstPlayerName;
+		this.secondPlayerName = secondPlayerName;
 	}
 
 	public void wonPoint(String playerName) {
-		if (playerName == "player1")
-			m_score1 += 1;
-		else
-			m_score2 += 1;
+		if (playerName == "player1") firstPlayerScoreTimes += 1;
+		else secondPlayerScoreTimes += 1;
 	}
 
 	public String getScore() {
-		String score = "";
-		int tempScore=0;
-		if (m_score1==m_score2)
-		{
-			switch (m_score1)
-			{
-				case 0:
-					score = "Love-All";
-					break;
-				case 1:
-					score = "Fifteen-All";
-					break;
-				case 2:
-					score = "Thirty-All";
-					break;
-				default:
-					score = "Deuce";
-					break;
-
-			}
-		}
-		else if (m_score1>=4 || m_score2>=4)
-		{
-			int minusResult = m_score1-m_score2;
-			if (minusResult==1) score ="Advantage player1";
-			else if (minusResult ==-1) score ="Advantage player2";
-			else if (minusResult>=2) score = "Win for player1";
-			else score ="Win for player2";
-		}
-		else
-		{
-			for (int i=1; i<3; i++)
-			{
-				if (i==1) tempScore = m_score1;
-				else { score+="-"; tempScore = m_score2;}
-				switch(tempScore)
-				{
-					case 0:
-						score+="Love";
-						break;
-					case 1:
-						score+="Fifteen";
-						break;
-					case 2:
-						score+="Thirty";
-						break;
-					case 3:
-						score+="Forty";
-						break;
-				}
-			}
+		if (isSameScore()) {
+			score = isDeuce() ? getDeuce() : getSameScore();
+		} else if (isReadyForGamePoint()) {
+			score = isAdv() ? advState() : isWin() ? winState() : "";
+		} else {
+			score = scoreDifferent();
 		}
 		return score;
+	}
+
+	private String scoreDifferent() {
+		int tempScore1;
+		for (int i = 1; i < 3; i++) {
+			if (i == 1) tempScore1 = firstPlayerScoreTimes;
+			else {
+				score += "-";
+				tempScore1 = secondPlayerScoreTimes;
+			}
+			score += scoreLookup.get(tempScore1);
+		}
+		return score;
+	}
+
+	private String winState() {
+		return "Win for " + getAdvPlayer();
+	}
+
+	private String advState() {
+		return "Advantage " + getAdvPlayer();
+	}
+
+	private boolean isWin() {
+		return abs(pointRange()) >= 2;
+	}
+
+	private boolean isAdv() {
+		return abs(pointRange()) == 1;
+	}
+
+	private String getSameScore() {
+		return scoreLookup.get(firstPlayerScoreTimes) + "-All";
+	}
+
+	private String getDeuce() {
+		return "Deuce";
+	}
+
+	private boolean isDeuce() {
+		return firstPlayerScoreTimes >= 3;
+	}
+
+	private boolean isSameScore() {
+		return firstPlayerScoreTimes == secondPlayerScoreTimes;
+	}
+
+	private boolean isReadyForGamePoint() {
+		return firstPlayerScoreTimes >= 4 || secondPlayerScoreTimes >= 4;
+	}
+
+	private int pointRange() {
+		return firstPlayerScoreTimes - secondPlayerScoreTimes;
+	}
+
+	private String getAdvPlayer() {
+		return firstPlayerScoreTimes > secondPlayerScoreTimes ? "player1" : "player2";
 	}
 }

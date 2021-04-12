@@ -1,134 +1,91 @@
-public class TennisGame2 implements TennisGame
-{
-	public int P1point = 0;
-	public int P2point = 0;
+import java.util.HashMap;
 
-	public String P1res = "";
-	public String P2res = "";
-	private String player1Name;
-	private String player2Name;
+import static java.lang.Math.abs;
 
-	public TennisGame2(String player1Name, String player2Name) {
-		this.player1Name = player1Name;
-		this.player2Name = player2Name;
+public class TennisGame2 implements TennisGame {
+	private final HashMap<Integer, String> scoreLookup =
+							new HashMap<Integer, String>() {
+								{
+									put(1, "Fifteen");
+									put(2, "Thirty");
+									put(3, "Forty");
+									put(0, "Love");
+								}
+							};
+	private final String firstPlayerName;
+	private final String secondPlayerName;
+	public int firstPlayerScoreTimes = 0;
+	public int secondPlayerScoreTimes = 0;
+	private String score = "";
+
+	public TennisGame2(String firstPlayerName, String secondPlayerName) {
+		this.firstPlayerName = firstPlayerName;
+		this.secondPlayerName = secondPlayerName;
 	}
 
-	public String getScore(){
-		String score = "";
-		if (P1point == P2point && P1point < 4)
-		{
-			if (P1point==0)
-				score = "Love";
-			if (P1point==1)
-				score = "Fifteen";
-			if (P1point==2)
-				score = "Thirty";
-			score += "-All";
+	public String getScore() {
+		if (isSameScore()) {
+			score = isDeuce() ? "Deuce" : sameScore();
 		}
-		if (P1point==P2point && P1point>=3)
-			score = "Deuce";
-
-		if (P1point > 0 && P2point==0)
-		{
-			if (P1point==1)
-				P1res = "Fifteen";
-			if (P1point==2)
-				P1res = "Thirty";
-			if (P1point==3)
-				P1res = "Forty";
-
-			P2res = "Love";
-			score = P1res + "-" + P2res;
-		}
-		if (P2point > 0 && P1point==0)
-		{
-			if (P2point==1)
-				P2res = "Fifteen";
-			if (P2point==2)
-				P2res = "Thirty";
-			if (P2point==3)
-				P2res = "Forty";
-
-			P1res = "Love";
-			score = P1res + "-" + P2res;
+		if (isScoreDifferent()) {
+			score = showScoreMessage();
 		}
 
-		if (P1point>P2point && P1point < 4)
-		{
-			if (P1point==2)
-				P1res="Thirty";
-			if (P1point==3)
-				P1res="Forty";
-			if (P2point==1)
-				P2res="Fifteen";
-			if (P2point==2)
-				P2res="Thirty";
-			score = P1res + "-" + P2res;
-		}
-		if (P2point>P1point && P2point < 4)
-		{
-			if (P2point==2)
-				P2res="Thirty";
-			if (P2point==3)
-				P2res="Forty";
-			if (P1point==1)
-				P1res="Fifteen";
-			if (P1point==2)
-				P1res="Thirty";
-			score = P1res + "-" + P2res;
+		if (isAdv()) {
+			score = advState();
 		}
 
-		if (P1point > P2point && P2point >= 3)
-		{
-			score = "Advantage player1";
+		if (isWin()) {
+			score = winState();
 		}
 
-		if (P2point > P1point && P1point >= 3)
-		{
-			score = "Advantage player2";
-		}
-
-		if (P1point>=4 && P2point>=0 && (P1point-P2point)>=2)
-		{
-			score = "Win for player1";
-		}
-		if (P2point>=4 && P1point>=0 && (P2point-P1point)>=2)
-		{
-			score = "Win for player2";
-		}
 		return score;
 	}
 
-	public void SetP1Score(int number){
-
-		for (int i = 0; i < number; i++)
-		{
-			P1Score();
-		}
-
+	private String winState() {
+		return "Win for " + advPlayer();
 	}
 
-	public void SetP2Score(int number){
-
-		for (int i = 0; i < number; i++)
-		{
-			P2Score();
-		}
-
+	private String advState() {
+		return "Advantage " + advPlayer();
 	}
 
-	public void P1Score(){
-		P1point++;
+	private boolean isWin() {
+		return (firstPlayerScoreTimes >= 4 || secondPlayerScoreTimes >= 4)
+								&& abs(firstPlayerScoreTimes - secondPlayerScoreTimes) >= 2;
 	}
 
-	public void P2Score(){
-		P2point++;
+	private String advPlayer() {
+		return firstPlayerScoreTimes > secondPlayerScoreTimes ? "player1" : "player2";
+	}
+
+	private boolean isAdv() {
+		return (firstPlayerScoreTimes > 3 || secondPlayerScoreTimes > 3)
+								&& abs(firstPlayerScoreTimes - secondPlayerScoreTimes) == 1;
+	}
+
+	private boolean isScoreDifferent() {
+		return firstPlayerScoreTimes != secondPlayerScoreTimes;
+	}
+
+	private boolean isDeuce() {
+		return firstPlayerScoreTimes >= 3;
+	}
+
+	private String sameScore() {
+		return scoreLookup.get(firstPlayerScoreTimes) + "-All";
+	}
+
+	private boolean isSameScore() {
+		return firstPlayerScoreTimes == secondPlayerScoreTimes;
+	}
+
+	private String showScoreMessage() {
+		return scoreLookup.get(firstPlayerScoreTimes) + "-" + scoreLookup.get(secondPlayerScoreTimes);
 	}
 
 	public void wonPoint(String player) {
-		if (player == "player1")
-			P1Score();
-		else
-			P2Score();
+		if (player == "player1") firstPlayerScoreTimes++;
+		else secondPlayerScoreTimes++;
 	}
 }

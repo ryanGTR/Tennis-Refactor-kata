@@ -1,35 +1,67 @@
+import static java.lang.Math.abs;
+
 public class TennisGame3 implements TennisGame {
 
-	private int p2;
-	private int p1;
-	private String p1N;
-	private String p2N;
+	private final String[] scoreLookup = new String[] {"Love", "Fifteen", "Thirty", "Forty"};
+	private int secondPlayerScoreTimes;
+	private int firstPlayerScoreTimes;
+	private String firstPlayerName;
+	private String secondPlayerName;
+	private String score;
 
-	public TennisGame3(String p1N, String p2N) {
-		this.p1N = p1N;
-		this.p2N = p2N;
+	public TennisGame3(String firstPlayerName, String secondPlayerName) {
+		this.firstPlayerName = firstPlayerName;
+		this.secondPlayerName = secondPlayerName;
 	}
 
 	public String getScore() {
-		String s;
-		if (p1 < 4 && p2 < 4 && !(p1 + p2 == 6)) {
-			String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
-			s = p[p1];
-			return (p1 == p2) ? s + "-All" : s + "-" + p[p2];
-		} else {
-			if (p1 == p2)
-				return "Deuce";
-			s = p1 > p2 ? p1N : p2N;
-			return ((p1-p2)*(p1-p2) == 1) ? "Advantage " + s : "Win for " + s;
-		}
+		return isScore()
+								? isSameScore() ? sameScore() : scoreDifferent()
+								: isDeuce() ? deuce() : isAdv() ? advState() : winState();
+	}
+
+	private String scoreDifferent() {
+		return scoreLookup[firstPlayerScoreTimes] + "-" + scoreLookup[secondPlayerScoreTimes];
+	}
+
+	private String sameScore() {
+		return scoreLookup[firstPlayerScoreTimes] + "-All";
+	}
+
+	private boolean isScore() {
+		return firstPlayerScoreTimes < 4 && secondPlayerScoreTimes < 4 && !(isDeuce());
+	}
+
+	private boolean isAdv() {
+		return abs(firstPlayerScoreTimes - secondPlayerScoreTimes) == 1;
+	}
+
+	private String winState() {
+		return "Win for " + getAdvPlayer();
+	}
+
+	private String advState() {
+		return "Advantage " + getAdvPlayer();
+	}
+
+	private String getAdvPlayer() {
+		return firstPlayerScoreTimes > secondPlayerScoreTimes ? firstPlayerName : secondPlayerName;
+	}
+
+	private String deuce() {
+		return "Deuce";
+	}
+
+	private boolean isDeuce() {
+		return isSameScore() && firstPlayerScoreTimes >= 3;
+	}
+
+	private boolean isSameScore() {
+		return firstPlayerScoreTimes == secondPlayerScoreTimes;
 	}
 
 	public void wonPoint(String playerName) {
-		if (playerName == "player1")
-			this.p1 += 1;
-		else
-			this.p2 += 1;
-
+		if (playerName == "player1") this.firstPlayerScoreTimes += 1;
+		else this.secondPlayerScoreTimes += 1;
 	}
-
 }
