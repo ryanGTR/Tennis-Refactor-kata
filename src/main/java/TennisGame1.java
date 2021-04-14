@@ -29,13 +29,11 @@ public class TennisGame1 implements TennisGame {
 	}
 
 	public String getScore() {
-		String score = "";
-		int tempScore = 0;
 		if (isTie()) {
 			if (isDeuce()) {
 				return "Deuce";
 			}
-			return sameScore(score);
+			return sameScore();
 		}
 		if (isAdv()) {
 			return "Advantage " + advPlayer();
@@ -43,22 +41,7 @@ public class TennisGame1 implements TennisGame {
 		if (isWin()) {
 			return "Win for " + advPlayer();
 		}
-
-//		if (player1ScoreTimes != player2ScoreTimes) {
-//			for (int i = 1; i < 3; i++) {
-//				if (i == 1) {
-//					tempScore = player1ScoreTimes;
-//				} else {
-//					score += "-";
-//					tempScore = player2ScoreTimes;
-//				}
-//				String tempMessage = "";
-//				tempMessage = translateScore(tempScore);
-//				score += tempMessage;
-//			}
-//		}
 		return translateScore(player1ScoreTimes)+ "-" + translateScore(player2ScoreTimes);
-//		return score;
 	}
 
 	private boolean isWin() {
@@ -81,7 +64,7 @@ public class TennisGame1 implements TennisGame {
 		return isTie() && player1ScoreTimes >= 3;
 	}
 
-	private String sameScore(String score) {
+	private String sameScore() {
 		return translateScore(player1ScoreTimes) + "-All";
 	}
 
