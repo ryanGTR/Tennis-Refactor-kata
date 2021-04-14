@@ -61,13 +61,13 @@ public class TennisGame1 implements TennisGame {
 					tempScore = player2ScoreTimes;
 				}
 				if (tempScore == 0) {
-					score += "Love";
+					score += scoreLookup.get(tempScore);
 				} else if (tempScore == 1) {
-					score += "Fifteen";
+					score += scoreLookup.get(tempScore);
 				} else if (tempScore == 2) {
-					score += "Thirty";
+					score += scoreLookup.get(tempScore);
 				} else if (tempScore == 3) {
-					score += "Forty";
+					score += scoreLookup.get(tempScore);
 				}
 			}
 		}
