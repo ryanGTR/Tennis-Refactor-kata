@@ -31,17 +31,33 @@ public class TennisGame1 implements TennisGame {
 	public String getScore() {
 		if (isTie()) {
 			if (isDeuce()) {
-				return "Deuce";
+				return deuce();
 			}
 			return sameScore();
 		}
 		if (isAdv()) {
-			return "Advantage " + advPlayer();
+			return advState();
 		}
 		if (isWin()) {
-			return "Win for " + advPlayer();
+			return winState();
 		}
-		return translateScore(player1ScoreTimes)+ "-" + translateScore(player2ScoreTimes);
+		return scoreDifferent();
+	}
+
+	private String scoreDifferent() {
+		return translateScore(player1ScoreTimes) + "-" + translateScore(player2ScoreTimes);
+	}
+
+	private String winState() {
+		return "Win for " + advPlayer();
+	}
+
+	private String advState() {
+		return "Advantage " + advPlayer();
+	}
+
+	private String deuce() {
+		return "Deuce";
 	}
 
 	private boolean isWin() {
