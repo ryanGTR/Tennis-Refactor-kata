@@ -39,20 +39,11 @@ public class TennisGame1 implements TennisGame {
 		} else if (isReadyForGamePoint()) {
 			int minusResult = player1ScoreTimes - player2ScoreTimes;
 			String advPlayer = player1ScoreTimes> player2ScoreTimes ? "player1" : "player2";
-			if (abs(minusResult) == 1
-				//&& player1ScoreTimes > player2ScoreTimes
-			)
-			{
-				score = "Advantage "
-										+ advPlayer;}
-//			} else if (abs(minusResult) == 1
-////				&& player2ScoreTimes > player1ScoreTimes) {
-////				score = "Advantage player2";
-////			} //
-			else if (minusResult >= 2) {
-				score = "Win for player1";
-			} else {
-				score = "Win for player2";
+			if (abs(minusResult) == 1){
+				score = "Advantage " + advPlayer;
+			}
+			else if (abs(minusResult) >= 2) {
+				score = "Win for " + advPlayer;
 			}
 		} else {
 			for (int i = 1; i < 3; i++) {
