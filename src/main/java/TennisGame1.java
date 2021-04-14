@@ -30,9 +30,8 @@ public class TennisGame1 implements TennisGame {
 		String score = "";
 		int tempScore = 0;
 		if (isTie()) {
-			score = translateScore(score, player1ScoreTimes);
-			score += "-All";
-			if (player1ScoreTimes >= 3) {
+			score = sameScore(score);
+			if (isTie() && player1ScoreTimes >= 3) {
 				score = "Deuce";
 			}
 		} else if (player1ScoreTimes >= 4 || player2ScoreTimes >= 4) {
@@ -60,6 +59,10 @@ public class TennisGame1 implements TennisGame {
 			}
 		}
 		return score;
+	}
+
+	private String sameScore(String score) {
+		return translateScore(score, player1ScoreTimes) + "-All";
 	}
 
 	private String translateScore(String score, int player1ScoreTimes) {
