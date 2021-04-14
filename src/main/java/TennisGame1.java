@@ -54,7 +54,7 @@ public class TennisGame1 implements TennisGame {
 					tempScore = player2ScoreTimes;
 				}
 				String tempMessage = "";
-				tempMessage = translateScore(tempMessage, tempScore);
+				tempMessage = translateScore(tempScore);
 				score += tempMessage;
 			}
 		}
@@ -66,14 +66,11 @@ public class TennisGame1 implements TennisGame {
 	}
 
 	private String sameScore(String score) {
-		return translateScore(score, player1ScoreTimes) + "-All";
+		return translateScore(player1ScoreTimes) + "-All";
 	}
 
-	private String translateScore(String score, int player1ScoreTimes) {
-		if (player1ScoreTimes <= 3) {
-			score = scoreLookup.get(player1ScoreTimes);
-		}
-		return score;
+	private String translateScore(int player1ScoreTimes) {
+		return player1ScoreTimes <= 3 ? scoreLookup.get(player1ScoreTimes) : "";
 	}
 
 	private boolean isTie() {
