@@ -28,7 +28,8 @@ public class TennisGame1 implements TennisGame {
 				score = "Fifteen-All";
 			} else if (player1ScoreTimes == 2) {
 				score = "Thirty-All";
-			} else {
+			}
+			if (player1ScoreTimes >=3) {
 				score = "Deuce";
 			}
 		}
