@@ -32,33 +32,41 @@ public class TennisGame1 implements TennisGame {
 		String score = "";
 		int tempScore = 0;
 		if (isTie()) {
-			score = sameScore(score);
 			if (isDeuce()) {
-				score = "Deuce";
+				return "Deuce";
 			}
-		} else if (isReadyForGamePoint() && abs(player1ScoreTimes - player2ScoreTimes) == 1) {
-			if (abs(player1ScoreTimes - player2ScoreTimes) == 1){
-				score = "Advantage " + advPlayer();
-			}
-
-		} else if (isReadyForGamePoint() && abs(player1ScoreTimes - player2ScoreTimes) >= 2) {
-			 if (abs(player1ScoreTimes - player2ScoreTimes) >= 2) {
-				score = "Win for " + advPlayer();
-			}
-		} else {
-			for (int i = 1; i < 3; i++) {
-				if (i == 1) {
-					tempScore = player1ScoreTimes;
-				} else {
-					score += "-";
-					tempScore = player2ScoreTimes;
-				}
-				String tempMessage = "";
-				tempMessage = translateScore(tempScore);
-				score += tempMessage;
-			}
+			return sameScore(score);
 		}
-		return score;
+		if (isAdv()) {
+			return "Advantage " + advPlayer();
+		}
+		if (isWin()) {
+			return "Win for " + advPlayer();
+		}
+
+//		if (player1ScoreTimes != player2ScoreTimes) {
+//			for (int i = 1; i < 3; i++) {
+//				if (i == 1) {
+//					tempScore = player1ScoreTimes;
+//				} else {
+//					score += "-";
+//					tempScore = player2ScoreTimes;
+//				}
+//				String tempMessage = "";
+//				tempMessage = translateScore(tempScore);
+//				score += tempMessage;
+//			}
+//		}
+		return translateScore(player1ScoreTimes)+ "-" + translateScore(player2ScoreTimes);
+//		return score;
+	}
+
+	private boolean isWin() {
+		return isReadyForGamePoint() && abs(player1ScoreTimes - player2ScoreTimes) >= 2;
+	}
+
+	private boolean isAdv() {
+		return isReadyForGamePoint() && abs(player1ScoreTimes - player2ScoreTimes) == 1;
 	}
 
 	private String advPlayer() {
