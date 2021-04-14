@@ -2,6 +2,12 @@ import java.util.HashMap;
 
 public class TennisGame1 implements TennisGame {
 
+	private final HashMap<Integer, String> scoreLookup = new HashMap<Integer, String>() {{
+		put(0, "Love");
+		put(1, "Fifteen");
+		put(2, "Thirty");
+		put(3, "Forty");
+	}};
 	private int player1ScoreTimes = 0;
 	private int player2ScoreTimes = 0;
 	private String player1Name;
@@ -22,23 +28,9 @@ public class TennisGame1 implements TennisGame {
 
 	public String getScore() {
 		String score = "";
-		HashMap<Integer, String> scoreLookup = new HashMap<Integer, String>() {{
-			put(0, "Love");
-			put(1, "Fifteen");
-			put(2, "Thirty");
-			put(3, "Forty");
-		}};
 		int tempScore = 0;
 		if (isTie()) {
-			if (player1ScoreTimes == 0) {
-				score = scoreLookup.get(player1ScoreTimes);
-			} else if (player1ScoreTimes == 1) {
-				score = scoreLookup.get(player1ScoreTimes);
-			} else if (player1ScoreTimes == 2) {
-				score = scoreLookup.get(player1ScoreTimes);
-			} else if (player1ScoreTimes == 3) {
-				score = scoreLookup.get(player1ScoreTimes);
-			}
+			score = translateScore(score, player1ScoreTimes);
 			score += "-All";
 			if (player1ScoreTimes >= 3) {
 				score = "Deuce";
@@ -63,17 +55,16 @@ public class TennisGame1 implements TennisGame {
 					tempScore = player2ScoreTimes;
 				}
 				String tempMessage = "";
-				if (tempScore == 0) {
-					tempMessage = scoreLookup.get(tempScore);
-				} else if (tempScore == 1) {
-					tempMessage = scoreLookup.get(tempScore);
-				} else if (tempScore == 2) {
-					tempMessage = scoreLookup.get(tempScore);
-				} else if (tempScore == 3) {
-					tempMessage = scoreLookup.get(tempScore);
-				}
+				tempMessage = translateScore(tempMessage, tempScore);
 				score += tempMessage;
 			}
+		}
+		return score;
+	}
+
+	private String translateScore(String score, int player1ScoreTimes) {
+		if (player1ScoreTimes <= 3) {
+			score = scoreLookup.get(player1ScoreTimes);
 		}
 		return score;
 	}
