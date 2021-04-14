@@ -20,23 +20,16 @@ public class TennisGame1 implements TennisGame {
 	public String getScore() {
 		String score = "";
 		int tempScore=0;
-		if (player1ScoreTimes == player2ScoreTimes)
+		if (isTie())
 		{
-			switch (player1ScoreTimes)
-			{
-				case 0:
-					score = "Love-All";
-					break;
-				case 1:
-					score = "Fifteen-All";
-					break;
-				case 2:
-					score = "Thirty-All";
-					break;
-				default:
-					score = "Deuce";
-					break;
-
+			if (player1ScoreTimes == 0) {
+				score = "Love-All";
+			} else if (player1ScoreTimes == 1) {
+				score = "Fifteen-All";
+			} else if (player1ScoreTimes == 2) {
+				score = "Thirty-All";
+			} else {
+				score = "Deuce";
 			}
 		}
 		else if (player1ScoreTimes >=4 || player2ScoreTimes >=4)
@@ -71,5 +64,9 @@ public class TennisGame1 implements TennisGame {
 			}
 		}
 		return score;
+	}
+
+	private boolean isTie() {
+		return player1ScoreTimes == player2ScoreTimes;
 	}
 }
