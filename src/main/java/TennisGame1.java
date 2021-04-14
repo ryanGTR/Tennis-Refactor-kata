@@ -31,7 +31,7 @@ public class TennisGame1 implements TennisGame {
 		int tempScore = 0;
 		if (isTie()) {
 			score = sameScore(score);
-			if (isTie() && player1ScoreTimes >= 3) {
+			if (isDeuce()) {
 				score = "Deuce";
 			}
 		} else if (player1ScoreTimes >= 4 || player2ScoreTimes >= 4) {
@@ -59,6 +59,10 @@ public class TennisGame1 implements TennisGame {
 			}
 		}
 		return score;
+	}
+
+	private boolean isDeuce() {
+		return isTie() && player1ScoreTimes >= 3;
 	}
 
 	private String sameScore(String score) {
