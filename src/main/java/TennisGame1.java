@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class TennisGame1 implements TennisGame {
 
 	private int player1ScoreTimes = 0;
@@ -11,56 +13,61 @@ public class TennisGame1 implements TennisGame {
 	}
 
 	public void wonPoint(String playerName) {
-		if (playerName == "player1")
+		if (playerName == "player1") {
 			player1ScoreTimes += 1;
-		else
+		} else {
 			player2ScoreTimes += 1;
+		}
 	}
 
 	public String getScore() {
 		String score = "";
-		int tempScore=0;
-		if (isTie())
-		{
+		HashMap<Integer, String> scoreLookup = new HashMap<Integer, String>() {{
+			put(0, "Love");
+			put(1, "Fifteen");
+			put(2, "Thirty");
+			put(3, "Forty");
+		}};
+		int tempScore = 0;
+		if (isTie()) {
 			if (player1ScoreTimes == 0) {
-				score = "Love-All";
+				score = scoreLookup.get(player1ScoreTimes);
 			} else if (player1ScoreTimes == 1) {
-				score = "Fifteen-All";
+				score = scoreLookup.get(player1ScoreTimes);
 			} else if (player1ScoreTimes == 2) {
-				score = "Thirty-All";
+				score = scoreLookup.get(player1ScoreTimes);
 			}
-			if (player1ScoreTimes >=3) {
+			score += "-All";
+			if (player1ScoreTimes >= 3) {
 				score = "Deuce";
 			}
-		}
-		else if (player1ScoreTimes >=4 || player2ScoreTimes >=4)
-		{
+		} else if (player1ScoreTimes >= 4 || player2ScoreTimes >= 4) {
 			int minusResult = player1ScoreTimes - player2ScoreTimes;
-			if (minusResult==1) score ="Advantage player1";
-			else if (minusResult ==-1) score ="Advantage player2";
-			else if (minusResult>=2) score = "Win for player1";
-			else score ="Win for player2";
-		}
-		else
-		{
-			for (int i=1; i<3; i++)
-			{
-				if (i==1) tempScore = player1ScoreTimes;
-				else { score+="-"; tempScore = player2ScoreTimes;}
-				switch(tempScore)
-				{
-					case 0:
-						score+="Love";
-						break;
-					case 1:
-						score+="Fifteen";
-						break;
-					case 2:
-						score+="Thirty";
-						break;
-					case 3:
-						score+="Forty";
-						break;
+			if (minusResult == 1) {
+				score = "Advantage player1";
+			} else if (minusResult == -1) {
+				score = "Advantage player2";
+			} else if (minusResult >= 2) {
+				score = "Win for player1";
+			} else {
+				score = "Win for player2";
+			}
+		} else {
+			for (int i = 1; i < 3; i++) {
+				if (i == 1) {
+					tempScore = player1ScoreTimes;
+				} else {
+					score += "-";
+					tempScore = player2ScoreTimes;
+				}
+				if (tempScore == 0) {
+					score += "Love";
+				} else if (tempScore == 1) {
+					score += "Fifteen";
+				} else if (tempScore == 2) {
+					score += "Thirty";
+				} else if (tempScore == 3) {
+					score += "Forty";
 				}
 			}
 		}
