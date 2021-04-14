@@ -22,14 +22,20 @@ public class TennisGame1 implements TennisGame {
 		int tempScore=0;
 		if (isTie())
 		{
-			if (player1ScoreTimes == 0) {
-				score = "Love-All";
-			} else if (player1ScoreTimes == 1) {
-				score = "Fifteen-All";
-			} else if (player1ScoreTimes == 2) {
-				score = "Thirty-All";
-			} else {
-				score = "Deuce";
+			switch (player1ScoreTimes)
+			{
+				case 0:
+					score = "Love-All";
+					break;
+				case 1:
+					score = "Fifteen-All";
+					break;
+				case 2:
+					score = "Thirty-All";
+					break;
+				default:
+					score = "Deuce";
+					break;
 			}
 		}
 		else if (player1ScoreTimes >=4 || player2ScoreTimes >=4)
