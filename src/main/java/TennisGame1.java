@@ -36,14 +36,14 @@ public class TennisGame1 implements TennisGame {
 			if (isDeuce()) {
 				score = "Deuce";
 			}
-		} else if (isReadyForGamePoint()) {
-			int minusResult = player1ScoreTimes - player2ScoreTimes;
-			String advPlayer = player1ScoreTimes> player2ScoreTimes ? "player1" : "player2";
-			if (abs(minusResult) == 1){
-				score = "Advantage " + advPlayer;
+		} else if (isReadyForGamePoint() && abs(player1ScoreTimes - player2ScoreTimes) == 1) {
+			if (abs(player1ScoreTimes - player2ScoreTimes) == 1){
+				score = "Advantage " + advPlayer();
 			}
-			else if (abs(minusResult) >= 2) {
-				score = "Win for " + advPlayer;
+
+		} else if (isReadyForGamePoint() && abs(player1ScoreTimes - player2ScoreTimes) >= 2) {
+			 if (abs(player1ScoreTimes - player2ScoreTimes) >= 2) {
+				score = "Win for " + advPlayer();
 			}
 		} else {
 			for (int i = 1; i < 3; i++) {
@@ -59,6 +59,10 @@ public class TennisGame1 implements TennisGame {
 			}
 		}
 		return score;
+	}
+
+	private String advPlayer() {
+		return player1ScoreTimes> player2ScoreTimes ? "player1" : "player2";
 	}
 
 	private boolean isReadyForGamePoint() {
