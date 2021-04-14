@@ -36,6 +36,8 @@ public class TennisGame1 implements TennisGame {
 				score = scoreLookup.get(player1ScoreTimes);
 			} else if (player1ScoreTimes == 2) {
 				score = scoreLookup.get(player1ScoreTimes);
+			} else if (player1ScoreTimes == 3) {
+				score = scoreLookup.get(player1ScoreTimes);
 			}
 			score += "-All";
 			if (player1ScoreTimes >= 3) {
@@ -60,15 +62,17 @@ public class TennisGame1 implements TennisGame {
 					score += "-";
 					tempScore = player2ScoreTimes;
 				}
+				String tempMessage = "";
 				if (tempScore == 0) {
-					score += scoreLookup.get(tempScore);
+					tempMessage = scoreLookup.get(tempScore);
 				} else if (tempScore == 1) {
-					score += scoreLookup.get(tempScore);
+					tempMessage = scoreLookup.get(tempScore);
 				} else if (tempScore == 2) {
-					score += scoreLookup.get(tempScore);
+					tempMessage = scoreLookup.get(tempScore);
 				} else if (tempScore == 3) {
-					score += scoreLookup.get(tempScore);
+					tempMessage = scoreLookup.get(tempScore);
 				}
+				score += tempMessage;
 			}
 		}
 		return score;
