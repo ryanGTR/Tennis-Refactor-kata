@@ -1,3 +1,5 @@
+import static java.lang.Math.abs;
+
 import java.util.HashMap;
 
 public class TennisGame1 implements TennisGame {
@@ -34,11 +36,13 @@ public class TennisGame1 implements TennisGame {
 			if (isDeuce()) {
 				score = "Deuce";
 			}
-		} else if (player1ScoreTimes >= 4 || player2ScoreTimes >= 4) {
+		} else if (isReadyForGamePoint()) {
 			int minusResult = player1ScoreTimes - player2ScoreTimes;
-			if (minusResult == 1) {
+			if (abs(minusResult) == 1
+				&& player1ScoreTimes > player2ScoreTimes) {
 				score = "Advantage player1";
-			} else if (minusResult == -1) {
+			} else if (abs(minusResult) == 1
+				&& player2ScoreTimes > player1ScoreTimes) {
 				score = "Advantage player2";
 			} else if (minusResult >= 2) {
 				score = "Win for player1";
@@ -59,6 +63,10 @@ public class TennisGame1 implements TennisGame {
 			}
 		}
 		return score;
+	}
+
+	private boolean isReadyForGamePoint() {
+		return player1ScoreTimes >= 4 || player2ScoreTimes >= 4;
 	}
 
 	private boolean isDeuce() {
