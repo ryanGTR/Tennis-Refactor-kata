@@ -41,18 +41,7 @@ public class TennisGame1 implements TennisGame {
 	}
 
 	private String scoreDifferent() {
-		String score = "";
-		int tempScore = 0;
-		for (int i = 1; i < 3; i++) {
-			if (i == 1) {
-				tempScore = player1Score;
-			} else {
-				score += "-";
-				tempScore = player2Score;
-			}
-			score += translateScore(tempScore);
-		}
-		return score;
+		return translateScore(player1Score) + "-" + translateScore(player2Score);
 	}
 
 	private String winState() {
