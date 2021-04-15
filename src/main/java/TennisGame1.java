@@ -37,16 +37,17 @@ public class TennisGame1 implements TennisGame {
 					break;
 
 			}
+			return score;
 		} else if (player1Score >= 4 || player2Score >= 4) {
 			int minusResult = player1Score - player2Score;
 			if (minusResult == 1) {
-				score = "Advantage player1";
+				return score = "Advantage player1";
 			} else if (minusResult == -1) {
-				score = "Advantage player2";
+				return score = "Advantage player2";
 			} else if (minusResult >= 2) {
-				score = "Win for player1";
+				return score = "Win for player1";
 			} else {
-				score = "Win for player2";
+				return score = "Win for player2";
 			}
 		} else {
 			for (int i = 1; i < 3; i++) {
