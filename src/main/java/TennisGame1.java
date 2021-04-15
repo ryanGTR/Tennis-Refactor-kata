@@ -1,3 +1,5 @@
+import static java.lang.Math.abs;
+
 public class TennisGame1 implements TennisGame {
 
 	private int player1Score = 0;
@@ -28,33 +30,28 @@ public class TennisGame1 implements TennisGame {
 		}
 
 		if (player1Score >= 4 || player2Score >= 4) {
-			if (player1Score - player2Score == 1) {
-				return "Advantage player1";
-			} else if (player1Score - player2Score == -1) {
-				return "Advantage player2";
+			String advPlayer = player1Score > player2Score ? player1Name : player2Name;
+			if (abs(player1Score - player2Score) == 1) {
+				return "Advantage " + advPlayer;
 			}
 
-			if (player1Score - player2Score >= 2) {
-				return "Win for player1";
+			if (abs(player1Score - player2Score) >= 2) {
+				return "Win for " + advPlayer;
+			}
+		}
+
+		String score = "";
+		int tempScore = 0;
+		for (int i = 1; i < 3; i++) {
+			if (i == 1) {
+				tempScore = player1Score;
 			} else {
-				return "Win for player2";
+				score += "-";
+				tempScore = player2Score;
 			}
+			score += translateScore(tempScore);
 		}
-		{
-			String score = "";
-			int tempScore = 0;
-			for (int i = 1; i < 3; i++) {
-				if (i == 1) {
-					tempScore = player1Score;
-				} else {
-					score += "-";
-					tempScore = player2Score;
-				}
-				score += translateScore(tempScore);
-			}
-			return score;
-		}
-
+		return score;
 	}
 
 	private String translateScore(int tempScore) {
