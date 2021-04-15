@@ -21,42 +21,62 @@ public class TennisGame1 implements TennisGame {
 	}
 
 	public String getScore() {
-		String score = "";
-		int tempScore = 0;
+
+		if (isDeuce()) {
+			return deuce();
+		}
 		if (isSameScore()) {
-			if (isDeuce()) {
-				return deuce();
-			}
 			return sameScore();
 		}
 
-		if (player1Score >= 4 || player2Score >= 4) {
-			int minusResult = player1Score - player2Score;
-			String advPlayer = player1Score > player2Score ? player1Name : player2Name;
-			if (abs(minusResult) == 1) {
-				return "Advantage "
-										+ advPlayer;
-			} else if (abs(minusResult) >= 2) {
-				return "Win for "
-										+ advPlayer;
-			} else if (abs(minusResult) >= 2) {
-				return "Win for "
-										+ advPlayer;
-			}
+		if (isAdv()) {
+			return advState();
 		}
-		{
+		if (isWin()) {
+			return winState();
+		}
 
-			for (int i = 1; i < 3; i++) {
-				if (i == 1) {
-					tempScore = player1Score;
-				} else {
-					score += "-";
-					tempScore = player2Score;
-				}
-				score += translateScore(tempScore);
+		return scoreDifferent();
+
+	}
+
+	private String scoreDifferent() {
+		String score = "";
+		int tempScore = 0;
+		for (int i = 1; i < 3; i++) {
+			if (i == 1) {
+				tempScore = player1Score;
+			} else {
+				score += "-";
+				tempScore = player2Score;
 			}
+			score += translateScore(tempScore);
 		}
 		return score;
+	}
+
+	private String winState() {
+		return "Win for " + getAdvPlayer();
+	}
+
+	private String advState() {
+		return "Advantage " + getAdvPlayer();
+	}
+
+	private boolean isWin() {
+		return isReadyForGamePoint() && abs(player1Score - player2Score) >= 2;
+	}
+
+	private boolean isAdv() {
+		return isReadyForGamePoint() && abs(player1Score - player2Score) == 1;
+	}
+
+	private String getAdvPlayer() {
+		return player1Score > player2Score ? player1Name : player2Name;
+	}
+
+	private boolean isReadyForGamePoint() {
+		return player1Score >= 4 || player2Score >= 4;
 	}
 
 	private String sameScore() {
