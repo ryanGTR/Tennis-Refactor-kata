@@ -25,7 +25,8 @@ public class TennisGame1 implements TennisGame {
 			if (player1Score >= 3) {
 				return "Deuce";
 			}
-			score = translateScore(player1Score);
+			tempScore = player1Score;
+			score = translateScore(tempScore);
 			return score + "-All";
 		}
 		if (player1Score >= 4 || player2Score >= 4) {
@@ -58,7 +59,7 @@ public class TennisGame1 implements TennisGame {
 	}
 
 	private String translateScore(int tempScore) {
-		String score = ;
+		String score = "";
 		switch (tempScore) {
 			case 0:
 				score = "Love";
