@@ -21,11 +21,11 @@ public class TennisGame1 implements TennisGame {
 	public String getScore() {
 		String score = "";
 		int tempScore = 0;
-		if (player1Score == player2Score) {
-			if (player1Score >= 3) {
-				return "Deuce";
+		if (isSameScore()) {
+			if (isDeuce()) {
+				return deuce();
 			}
-			return translateScore(player1Score) + "-All";
+			return sameScore();
 		}
 
 		if (player1Score >= 4 || player2Score >= 4) {
@@ -53,6 +53,22 @@ public class TennisGame1 implements TennisGame {
 			}
 		}
 		return score;
+	}
+
+	private String sameScore() {
+		return translateScore(player1Score) + "-All";
+	}
+
+	private String deuce() {
+		return "Deuce";
+	}
+
+	private boolean isDeuce() {
+		return isSameScore() && player1Score >= 3;
+	}
+
+	private boolean isSameScore() {
+		return player1Score == player2Score;
 	}
 
 	private String translateScore(int tempScore) {
