@@ -22,22 +22,24 @@ public class TennisGame1 implements TennisGame {
 		String score = "";
 		int tempScore = 0;
 		if (player1Score == player2Score) {
+			if (player1Score >= 3) {
+				return "Deuce";
+			}
 			switch (player1Score) {
 				case 0:
-					score = "Love-All";
+					score = "Love";
 					break;
 				case 1:
-					score = "Fifteen-All";
+					score = "Fifteen";
 					break;
 				case 2:
-					score = "Thirty-All";
+					score = "Thirty";
 					break;
-				default:
-					score = "Deuce";
+				case 3:
+					score = "Forty";
 					break;
-
 			}
-			return score;
+			return score + "-All";
 		}
 		if (player1Score >= 4 || player2Score >= 4) {
 			int minusResult = player1Score - player2Score;
