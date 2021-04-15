@@ -38,7 +38,8 @@ public class TennisGame1 implements TennisGame {
 
 			}
 			return score;
-		} else if (player1Score >= 4 || player2Score >= 4) {
+		}
+		if (player1Score >= 4 || player2Score >= 4) {
 			int minusResult = player1Score - player2Score;
 			if (minusResult == 1) {
 				return score = "Advantage player1";
@@ -49,7 +50,8 @@ public class TennisGame1 implements TennisGame {
 			} else {
 				return score = "Win for player2";
 			}
-		} else {
+		}
+		{
 			for (int i = 1; i < 3; i++) {
 				if (i == 1) {
 					tempScore = player1Score;
