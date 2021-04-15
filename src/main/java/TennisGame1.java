@@ -25,20 +25,7 @@ public class TennisGame1 implements TennisGame {
 			if (player1Score >= 3) {
 				return "Deuce";
 			}
-			switch (player1Score) {
-				case 0:
-					score = "Love";
-					break;
-				case 1:
-					score = "Fifteen";
-					break;
-				case 2:
-					score = "Thirty";
-					break;
-				case 3:
-					score = "Forty";
-					break;
-			}
+			score = translateScore(player1Score);
 			return score + "-All";
 		}
 		if (player1Score >= 4 || player2Score >= 4) {
@@ -63,22 +50,28 @@ public class TennisGame1 implements TennisGame {
 					tempScore = player2Score;
 				}
 				String tempScoreMessage = "";
-				switch (tempScore) {
-					case 0:
-						tempScoreMessage = "Love";
-						break;
-					case 1:
-						tempScoreMessage = "Fifteen";
-						break;
-					case 2:
-						tempScoreMessage = "Thirty";
-						break;
-					case 3:
-						tempScoreMessage = "Forty";
-						break;
-				}
+				tempScoreMessage = translateScore(tempScore);
 				score += tempScoreMessage;
 			}
+		}
+		return score;
+	}
+
+	private String translateScore(int tempScore) {
+		String score = ;
+		switch (tempScore) {
+			case 0:
+				score = "Love";
+				break;
+			case 1:
+				score = "Fifteen";
+				break;
+			case 2:
+				score = "Thirty";
+				break;
+			case 3:
+				score = "Forty";
+				break;
 		}
 		return score;
 	}
