@@ -54,6 +54,7 @@ public class TennisGame1 implements TennisGame {
 			}
 		}
 		{
+
 			for (int i = 1; i < 3; i++) {
 				if (i == 1) {
 					tempScore = player1Score;
@@ -61,20 +62,22 @@ public class TennisGame1 implements TennisGame {
 					score += "-";
 					tempScore = player2Score;
 				}
+				String tempScoreMessage = "";
 				switch (tempScore) {
 					case 0:
-						score += "Love";
+						tempScoreMessage = "Love";
 						break;
 					case 1:
-						score += "Fifteen";
+						tempScoreMessage = "Fifteen";
 						break;
 					case 2:
-						score += "Thirty";
+						tempScoreMessage = "Thirty";
 						break;
 					case 3:
-						score += "Forty";
+						tempScoreMessage = "Forty";
 						break;
 				}
+				score += tempScoreMessage;
 			}
 		}
 		return score;
