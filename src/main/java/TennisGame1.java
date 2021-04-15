@@ -25,20 +25,19 @@ public class TennisGame1 implements TennisGame {
 			if (player1Score >= 3) {
 				return "Deuce";
 			}
-			tempScore = player1Score;
-			score = translateScore(tempScore);
-			return score + "-All";
+			return translateScore(player1Score) + "-All";
 		}
+
 		if (player1Score >= 4 || player2Score >= 4) {
 			int minusResult = player1Score - player2Score;
 			if (minusResult == 1) {
-				return score = "Advantage player1";
+				return "Advantage player1";
 			} else if (minusResult == -1) {
-				return score = "Advantage player2";
+				return "Advantage player2";
 			} else if (minusResult >= 2) {
-				return score = "Win for player1";
+				return "Win for player1";
 			} else {
-				return score = "Win for player2";
+				return "Win for player2";
 			}
 		}
 		{
@@ -50,9 +49,7 @@ public class TennisGame1 implements TennisGame {
 					score += "-";
 					tempScore = player2Score;
 				}
-				String tempScoreMessage = "";
-				tempScoreMessage = translateScore(tempScore);
-				score += tempScoreMessage;
+				score += translateScore(tempScore);
 			}
 		}
 		return score;
