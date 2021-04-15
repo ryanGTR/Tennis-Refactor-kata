@@ -19,8 +19,7 @@ public class TennisGame1 implements TennisGame {
 	}
 
 	public String getScore() {
-		String score = "";
-		int tempScore = 0;
+
 		if (player1Score == player2Score) {
 			if (player1Score >= 3) {
 				return "Deuce";
@@ -29,19 +28,21 @@ public class TennisGame1 implements TennisGame {
 		}
 
 		if (player1Score >= 4 || player2Score >= 4) {
-			int minusResult = player1Score - player2Score;
-			if (minusResult == 1) {
+			if (player1Score - player2Score == 1) {
 				return "Advantage player1";
-			} else if (minusResult == -1) {
+			} else if (player1Score - player2Score == -1) {
 				return "Advantage player2";
-			} else if (minusResult >= 2) {
+			}
+
+			if (player1Score - player2Score >= 2) {
 				return "Win for player1";
 			} else {
 				return "Win for player2";
 			}
 		}
 		{
-
+			String score = "";
+			int tempScore = 0;
 			for (int i = 1; i < 3; i++) {
 				if (i == 1) {
 					tempScore = player1Score;
@@ -51,8 +52,9 @@ public class TennisGame1 implements TennisGame {
 				}
 				score += translateScore(tempScore);
 			}
+			return score;
 		}
-		return score;
+
 	}
 
 	private String translateScore(int tempScore) {
