@@ -36,13 +36,12 @@ public class TennisGame1 implements TennisGame {
 			if (abs(minusResult) == 1) {
 				return "Advantage "
 										+ advPlayer;
-			} else if (abs(minusResult) == 1) {
-				return "Advantage "
+			} else if (abs(minusResult) >= 2) {
+				return "Win for "
 										+ advPlayer;
-			} else if (minusResult >= 2) {
-				return "Win for player1";
-			} else {
-				return "Win for player2";
+			} else if (abs(minusResult) >= 2) {
+				return "Win for "
+										+ advPlayer;
 			}
 		}
 		{
